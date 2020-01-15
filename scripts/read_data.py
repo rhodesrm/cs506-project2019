@@ -1,13 +1,17 @@
+#SBA data manipulation and simple column names and entries processing
+#dropping nan values
+
+import numpy as np
 import pandas as pd
 
 from pandas import *
 
 import urllib
-from urllib import pathname2url
-from urlparse import urlparse
+from urllib.request import pathname2url
+#from urlparse import urlparse
 
 #reading dataset
-df = pd.read_csv('../datasets/data_all_no_naics.csv', index_col=0)
+df = pd.read_csv('../datasets/small_disadvantaged.csv', index_col=0)
 
 
 #changin column names
@@ -27,10 +31,10 @@ df.dropna(subset=['Contact'],axis='rows',inplace=True)
 names_array = df['Contact'].values
 urls_list=[]
 for name in names_array:
-	urls_list.append(urllib.pathname2url(name))
+	urls_list.append(pathname2url(name))
 
 
 df['perc_encoding']=urls_list
 
 #save to csv
-df.to_csv('../datasets/data_all_no_naics_prc.csv')
+df.to_csv('../datasets/small_disadvantaged_proc.csv')
